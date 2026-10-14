@@ -1,0 +1,199 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "John Lucero Cabilao",
+            "email": "jolu.cabilao@gmail.com",
+            "password": "password123",
+            "phone": "+63 912 345 6789",
+            "birthdate": "1998-01-15",
+            "gender": "Male",
+            "address": "Punta Enga\u00f1o, Lapu-Lapu City, Cebu, Philippines",
+            "member_id": "CV-8829",
+            "pfp": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+            "total_bookings": 3,
+            "nights_stayed": 5
+        }
+    ],
+    "announcements": [
+        {
+            "id": 1,
+            "tag": "Tournament Announcement",
+            "title": "Annual Cebu Open Pickleball Championship 2026",
+            "short_desc": "Registration is officially open for the CasaVista Masters. Featuring Men's, Women's, and Mixed Open brackets with standard tournament rules and cash awards.",
+            "full_desc": "We are honored to host the 2026 CasaVista Masters Tournament across all 3 certified hardcourts this August.\n\nTournament Schedule & Details:\n\u2022 Aug 21-22: Mixed Doubles Prelims & Quarter-finals\n\u2022 Aug 23: Championship Finals & Sunset Awards Reception\n\nComplimentary tournament jerseys, hydration stations, and access to the recovery cold plunge pool are included for all registered players. Inquire through front desk or submit your doubles roster today.",
+            "date": "September 27, 2026",
+            "author": "Sports & Recreation Director",
+            "image": "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1200&q=80"
+        },
+        {
+            "id": 2,
+            "tag": "Facility Advisory",
+            "title": "Main Infinity Pool & Coastal Deck Filtration Upgrade",
+            "short_desc": "Scheduled eco-filtration maintenance will take place on Tuesday morning from 7:00 AM to 11:30 AM to maintain pristine seawater clarity.",
+            "full_desc": "To uphold our rigorous environmental sanitation standards, our coastal infinity pool filtration undergoes preventative maintenance every Tuesday morning.\n\nWhat to expect:\n\u2022 Private villa plunge pools and cabanas remain 100% operational.\n\u2022 The resort beachfront lounge and sports courts will be open during regular operational hours.\n\u2022 Refreshment bar will serve complimentary iced tea for affected guests at the garden deck.",
+            "date": "August 14, 2026",
+            "author": "Resort Operations Office",
+            "image": "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80"
+        },
+        {
+            "id": 3,
+            "tag": "Culinary Experience",
+            "title": "Seaside Acoustic Dinners & Farm-To-Table Grill",
+            "short_desc": "Join our culinary team every Friday and Saturday evening for fresh Mactan seafood skewers, organic farm produce, and live acoustic lounge music.",
+            "full_desc": "Spend sunset beneath the palms at our beachfront terrace with an exclusive culinary showcase by Chef Marco Rivera.\n\nFeatures:\n\u2022 Catch-of-the-day yellowfin tuna and tiger prawns grilled over coconut husk embers\n\u2022 Organic greens harvested directly from Central Visayas partner farms\n\u2022 Live bossa nova and acoustic sets from 6:00 PM to 9:30 PM",
+            "date": "October 01, 2026",
+            "author": "Executive Chef",
+            "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+        }
+    ],
+    "catalog": [
+        {
+            "id": 101,
+            "type": "ROOMS",
+            "title": "Villa Suite 101 (Seaview)",
+            "subtitle": "King Bed \u2022 Panoramic Ocean Balcony \u2022 Marble Bath",
+            "rate": 4500,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+            "description": "A serene 72 sqm oceanfront sanctuary featuring floor-to-ceiling glass doors overlooking the Cebu strait, a deep soaking tub, mini-bar, and custom teak furnishings."
+        },
+        {
+            "id": 102,
+            "type": "ROOMS",
+            "title": "Villa Deluxe 102 (Garden)",
+            "subtitle": "Queen Bed \u2022 Tropical Flora Views \u2022 Direct Pool Pathway",
+            "rate": 3800,
+            "status": "Under Maintenance",
+            "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+            "description": "Surrounded by lush native garden greenery with a private stone terrace and immediate walk-in access to the resort's central infinity pool."
+        },
+        {
+            "id": 103,
+            "type": "ROOMS",
+            "title": "Family Loft 201",
+            "subtitle": "2 Queen Beds \u2022 Double-Height Ceilings \u2022 Kitchenette",
+            "rate": 6800,
+            "status": "Booked",
+            "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
+            "description": "Two-story architectural loft built for 4 to 6 guests. Features high cathedral ceilings, a dining space, induction cooktop, and generous living area."
+        },
+        {
+            "id": 201,
+            "type": "PICKLEBALL",
+            "title": "Pickleball Court 1 (Pro Hardcourt)",
+            "subtitle": "Covered Canopy \u2022 Tournament Non-Glare Lighting",
+            "rate": 350,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=1200&q=80",
+            "description": "Cushioned acrylic hardcourt certified to competitive standards. Engineered with high-traction surface texture and shadow-free LED night illumination."
+        },
+        {
+            "id": 202,
+            "type": "PICKLEBALL",
+            "title": "Pickleball Court 2 (Open Air Breeze)",
+            "subtitle": "Outdoor \u2022 Shaded Players Bench \u2022 Ocean Breeze",
+            "rate": 350,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+            "description": "Open-air court situated along the sea-facing boundary. Features pro-spec net posts, shaded player seating, and complimentary court-side water dispensers."
+        },
+        {
+            "id": 203,
+            "type": "PICKLEBALL",
+            "title": "Pickleball Court 3 (Training & Ball Machine)",
+            "subtitle": "Automatic Ball Feeder \u2022 Rebound Wall \u2022 Instructor Ready",
+            "rate": 450,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1200&q=80",
+            "description": "Dedicated skill development court equipped with a programmable ball feed system and high-density practice rebound wall for single or coach sessions."
+        },
+        {
+            "id": 301,
+            "type": "BASKETBALL",
+            "title": "FIBA Regulation Basketball Court",
+            "subtitle": "Hardwood Finish \u2022 Shatterproof Glass Backboards \u2022 Scoreboard",
+            "rate": 800,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80",
+            "description": "Full-size basketball facility featuring shock-attenuating flooring, pro spring-loaded breakaway rims, regulation glass backboards, and digital scoring."
+        },
+        {
+            "id": 401,
+            "type": "BUYOUT",
+            "title": "Complete Resort Buyout (Private Oasis)",
+            "subtitle": "All 3 Luxury Villas \u2022 All 4 Courts \u2022 Infinity Pool & Grounds",
+            "rate": 35000,
+            "status": "Available",
+            "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1600&q=80",
+            "description": "Reserve the entire CasaVista property exclusively. Includes private occupancy of all villas (up to 16 guests), unrestricted sports court use, and dedicated private concierge."
+        }
+    ],
+    "bookings": [
+        {
+            "id": "BK-1001",
+            "user_id": 1,
+            "title": "Villa Suite 101 & Pickleball Court 1",
+            "type": "Cancelled",
+            "check_in": "2:00 PM",
+            "check_out": "12:00 PM",
+            "date": "AUG 10, 2026",
+            "capacity": "Villa Suite 101 (King Bed) + 1-Hour Court Access",
+            "payment": "GCash Verified (Ref: 981244301)",
+            "price": "\u20b14,850",
+            "status": "Cancelled"
+        },
+        {
+            "id": "BK-1002",
+            "user_id": 1,
+            "title": "Family Loft 201",
+            "type": "Upcoming",
+            "check_in": "2:00 PM",
+            "check_out": "12:00 PM",
+            "date": "Sep 26, 2026",
+            "capacity": "4-6 Guests \u2022 2 Queen Beds \u2022 Kitchenette Included",
+            "payment": "Credit Card (Mastercard \u2022\u2022\u2022\u2022 4419)",
+            "price": "\u20b16,800",
+            "status": "Confirmed"
+        },
+        {
+            "id": "BK-1003",
+            "user_id": 1,
+            "title": "Pickleball Court 1 (1 Hour Rally)",
+            "type": "Past",
+            "check_in": "3:00 PM",
+            "check_out": "4:00 PM",
+            "date": "Jul 15, 2026",
+            "capacity": "4 Players \u2022 Paddle Rental Included",
+            "payment": "Maya E-Wallet Paid",
+            "price": "\u20b1350",
+            "status": "Completed"
+        },
+        {
+            "id": "BK-1004",
+            "user_id": 1,
+            "title": "FIBA Basketball Court Full Rental",
+            "type": "Cancelled",
+            "check_in": "5:00 PM",
+            "check_out": "7:00 PM",
+            "date": "Jun 02, 2026",
+            "capacity": "10 Players \u2022 2-Hour Evening Session",
+            "payment": "Full Refund Processed",
+            "price": "\u20b11,600",
+            "status": "Cancelled"
+        },
+        {
+            "id": "BK-7929",
+            "user_id": 1,
+            "title": "Villa Suite 101 (Seaview)",
+            "type": "Upcoming",
+            "check_in": "2:00 PM",
+            "check_out": "12:00 PM",
+            "date": "Oct 06, 2026",
+            "capacity": "King Bed \u2022 Panoramic Ocean Balcony \u2022 Marble Bath",
+            "payment": "Online Bank Transfer / GCash",
+            "price": "\u20b14,500 / night",
+            "status": "Confirmed"
+        }
+    ]
+}
