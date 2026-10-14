@@ -92,15 +92,26 @@ body {
   overflow-x: hidden;
 }
 
-.reveal {
+.motion-ready .reveal,
+.motion-ready .scroll-reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.reveal.visible {
+.motion-ready .reveal.visible,
+.motion-ready .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.motion-ready body {
+  animation: page-enter 0.45s ease-out both;
 }
 
 img {
@@ -1633,6 +1644,16 @@ input[type="submit"]:focus-visible,
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .motion-ready .reveal,
+  .motion-ready .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .motion-ready body {
+    animation: none;
   }
 
   a.btn:hover,

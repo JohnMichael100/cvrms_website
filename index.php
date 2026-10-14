@@ -19,6 +19,7 @@ if (isset($_SESSION['user_id'])) {
       --page-gutter: clamp(14px, 1.6vw, 24px);
     }
 
+    /* Fixed top bar calculation */
     .public-top-bar {
       width: calc(100% - (var(--page-gutter) * 2));
       margin: 0 auto;
@@ -49,12 +50,178 @@ if (isset($_SESSION['user_id'])) {
       white-space: nowrap;
     }
 
+    /* Fixed hero calculation */
     .hero-editorial {
       width: calc(100% - (var(--page-gutter) * 2));
-      min-height: 70vh;
+      min-height: 72vh;
       margin: 0 auto 30px;
       border-radius: 28px;
       box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Resort Key Stats Ribbon */
+    .resort-stats-strip {
+      width: calc(100% - (var(--page-gutter) * 2));
+      margin: 0 auto 50px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-item {
+      text-align: center;
+      border-right: 1px solid var(--border-subtle);
+      padding: 0 16px;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Section Headers */
+    .section-intro-center {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+      padding: 0 16px;
+    }
+
+    .section-intro-center h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.2vw, 38px);
+      line-height: 1.25;
+      margin-top: 6px;
+      color: var(--text-primary);
+    }
+
+    .section-intro-center p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    /* Villa Showcase Cards */
+    .villas-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 0 var(--page-gutter) 60px;
+    }
+
+    .villa-card {
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .villa-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .villa-card-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .villa-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .villa-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 10px 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .villa-price-row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+    }
+
+    /* Editorial Quote Banner */
+    .editorial-quote-section {
+      width: calc(100% - (var(--page-gutter) * 2));
+      margin: 0 auto 60px;
+      background-color: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 56px 40px;
+      text-align: center;
+    }
+
+    .editorial-quote-text {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 2.5vw, 30px);
+      font-style: italic;
+      color: var(--text-primary);
+      max-width: 800px;
+      margin: 0 auto 16px;
+      line-height: 1.45;
+    }
+
+    .editorial-quote-author {
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gold-600);
+    }
+
+    @media (max-width: 992px) {
+      .resort-stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .stat-item:nth-child(2) {
+        border-right: none;
+      }
+      .villas-showcase-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -96,6 +263,19 @@ if (isset($_SESSION['user_id'])) {
         min-height: 62vh;
         border-radius: 20px;
       }
+
+      .resort-stats-strip {
+        grid-template-columns: 1fr;
+      }
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 14px;
+      }
+      .stat-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
     }
   </style>
 </head>
@@ -121,9 +301,9 @@ if (isset($_SESSION['user_id'])) {
     <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=80" alt="CasaVista Resort Aerial View" class="hero-editorial-bg">
     <div class="hero-editorial-content reveal">
       <span class="hero-editorial-kicker">Private Coastal Sanctuary in Cebu</span>
-      <h1 class="hero-editorial-title">Where Coastal Tranquility Meets Championship Athletics</h1>
+      <h1 class="hero-editorial-title">Where the shoreline meets quiet luxury</h1>
       <p class="hero-editorial-lead">
-        Discover CasaVista: 3 intimate luxury villas, 3 tournament-certified pickleball hardcourts, a full-size FIBA basketball arena, and exclusive full-resort buyout privileges.
+        Discover CasaVista: 3 intimate luxury villas, 3 certified pickleball courts, a full-size basketball court, and exclusive full-resort buyout privileges.
       </p>
       <div class="hero-editorial-actions">
         <a href="login.php" class="btn btn-gold" style="padding:14px 32px; font-size:15px;">Book Accommodations &rarr;</a>
@@ -131,8 +311,36 @@ if (isset($_SESSION['user_id'])) {
     </div>
   </section>
 
+  <!-- Quick Resort Stats Strip -->
+  <div class="resort-stats-strip reveal">
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Luxury Villas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Pickleball Courts</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Regulation Court</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Secluded Privacy</div>
+    </div>
+  </div>
+
   <!-- Content Container -->
   <main class="main-content" style="padding-top:0;">
+    
+    <!-- Section Introduction -->
+    <div class="section-intro-center reveal">
+      <span class="section-kicker">Recreation &amp; Wellness</span>
+      <h2>Designed for Rest, Built for Play</h2>
+      <p>Whether you're serving on tournament courts or watching the tide recede from your private veranda, every corner of CasaVista invites effortless living.</p>
+    </div>
+
     <!-- Feature Highlights Trio -->
     <section class="features-trio">
       <div class="feature-panel reveal">
@@ -148,7 +356,7 @@ if (isset($_SESSION['user_id'])) {
         </p>
       </div>
 
-      <div class="feature-panel reveal" style="transition-delay: 200ms;">
+      <div class="feature-panel reveal" style="transition-delay: 150ms;">
         <div class="feature-panel-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
@@ -161,7 +369,7 @@ if (isset($_SESSION['user_id'])) {
         </p>
       </div>
 
-      <div class="feature-panel reveal" style="transition-delay: 300ms;">
+      <div class="feature-panel reveal" style="transition-delay: 250ms;">
         <div class="feature-panel-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -176,6 +384,81 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </section>
 
+    <!-- Accommodations Preview -->
+    <div class="section-intro-center reveal" style="margin-top:60px;">
+      <span class="section-kicker">Intimate Living</span>
+      <h2>The Accommodations</h2>
+      <p>Three meticulously curated villas offering uncompromised privacy, tailored natural textures, and uninterrupted coastal vistas.</p>
+    </div>
+
+    <section class="villas-showcase-grid">
+      <!-- Villa 1 -->
+      <article class="villa-card reveal">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Villa Mar Suite" class="villa-card-image">
+        <div class="villa-card-body">
+          <span class="section-kicker">Oceanfront Suite</span>
+          <h3 style="font-family:var(--font-serif); font-size:22px; margin:4px 0 8px;">Villa Mar</h3>
+          <p style="font-size:14px; color:var(--text-secondary); line-height:1.6;">Direct access to the white sand shore, featuring an expansive open-air bath and king suite.</p>
+          <div class="villa-meta">
+            <span>&bull; Up to 2 Guests</span>
+            <span>&bull; 1 King Bed</span>
+            <span>&bull; Sea View</span>
+          </div>
+          <div class="villa-price-row">
+            <span style="font-size:14px; font-weight:700; color:var(--gold-600);">₱7,500 <small style="font-weight:400; color:var(--text-muted);">/ night</small></span>
+            <a href="login.php" class="btn btn-secondary btn-sm">View Details</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Villa 2 -->
+      <article class="villa-card reveal" style="transition-delay: 150ms;">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Villa Sol Loft" class="villa-card-image">
+        <div class="villa-card-body">
+          <span class="section-kicker">Family Haven</span>
+          <h3 style="font-family:var(--font-serif); font-size:22px; margin:4px 0 8px;">Villa Sol</h3>
+          <p style="font-size:14px; color:var(--text-secondary); line-height:1.6;">Two-story loft layout with cathedral ceilings, private balcony, and poolside terrace.</p>
+          <div class="villa-meta">
+            <span>&bull; Up to 4 Guests</span>
+            <span>&bull; 2 Queen Beds</span>
+            <span>&bull; Pool Access</span>
+          </div>
+          <div class="villa-price-row">
+            <span style="font-size:14px; font-weight:700; color:var(--gold-600);">₱11,000 <small style="font-weight:400; color:var(--text-muted);">/ night</small></span>
+            <a href="login.php" class="btn btn-secondary btn-sm">View Details</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Villa 3 -->
+      <article class="villa-card reveal" style="transition-delay: 250ms;">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Villa Luna Master" class="villa-card-image">
+        <div class="villa-card-body">
+          <span class="section-kicker">Presidential Master</span>
+          <h3 style="font-family:var(--font-serif); font-size:22px; margin:4px 0 8px;">Villa Luna</h3>
+          <p style="font-size:14px; color:var(--text-secondary); line-height:1.6;">Our premier master retreat with a private garden patio, outdoor shower, and plunge lounge.</p>
+          <div class="villa-meta">
+            <span>&bull; Up to 4 Guests</span>
+            <span>&bull; 1 King + 1 Daybed</span>
+            <span>&bull; Garden Deck</span>
+          </div>
+          <div class="villa-price-row">
+            <span style="font-size:14px; font-weight:700; color:var(--gold-600);">₱13,500 <small style="font-weight:400; color:var(--text-muted);">/ night</small></span>
+            <a href="login.php" class="btn btn-secondary btn-sm">View Details</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Editorial Quote Section -->
+    <section class="editorial-quote-section reveal">
+      <span class="section-kicker">The CasaVista Experience</span>
+      <blockquote class="editorial-quote-text">
+        &ldquo;The quiet exclusivity here is unmatched. Playing championship pickleball in the morning and retreating to a secluded villa by the sea made our team retreat unforgettable.&rdquo;
+      </blockquote>
+      <div class="editorial-quote-author">&mdash; Verified Guest Review &bull; Cebu Private Retreat</div>
+    </section>
+
     <!-- Full Property Buyout Showcase -->
     <section class="reveal" style="background-color:var(--bg-surface); border-radius:var(--radius-lg); border:1px solid var(--border-subtle); overflow:hidden; box-shadow:var(--shadow-md); margin:0 var(--page-gutter) 60px; transition-delay: 150ms;">
       <div style="display:grid; grid-template-columns:1fr 1fr; align-items:center;">
@@ -185,7 +468,7 @@ if (isset($_SESSION['user_id'])) {
           <p style="font-size:15px; color:var(--text-secondary); line-height:1.8; margin-bottom:28px;">
             Hosting an executive company retreat, private wedding celebration, or milestone family gathering? Our full buyout packages grant complete privacy across all 3 villas, 4 sports courts, the oceanfront infinity pool, and the clubhouse bar.
           </p>
-          <div style="display:flex; gap:16px; align-items:center;">
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
             <a href="login.php" class="btn btn-primary">Check Availability &rarr;</a>
             <span style="font-size:14px; font-weight:700; color:var(--gold-600);">From ₱35,000 / day</span>
           </div>
@@ -195,23 +478,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
       </div>
     </section>
+
   </main>
 
   <?php include __DIR__ . '/includes/footer.php'; ?>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    });
-  </script>
-</body>
-</html>
