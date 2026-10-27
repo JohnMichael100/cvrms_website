@@ -26,8 +26,14 @@ $first_name = $user ? explode(' ', $user['name'])[0] : 'ALEX';
       </div>
     </a>
 
+    <button type="button" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
     <!-- Navigation Menu (Home, Catalog, Court, Bookings, Profile) -->
-    <nav class="nav-menu">
+    <nav class="nav-menu" id="primaryNavigation" aria-label="Main navigation">
       <a href="home.php" class="nav-link <?= ($current_page == 'home.php') ? 'active' : '' ?>">Home</a>
       <a href="catalog.php" class="nav-link <?= ($current_page == 'catalog.php') ? 'active' : '' ?>">Catalog</a>
       <a href="court.php" class="nav-link <?= ($current_page == 'court.php') ? 'active' : '' ?>">Courts</a>

@@ -110,18 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="panel-card profile-card-center">
         <div class="profile-avatar-frame">
           <img src="<?= htmlspecialchars($user['pfp']) ?>" alt="Avatar" class="profile-avatar-img">
-          <div class="avatar-edit-icon" onclick="openAvatarModal()" title="Change Profile Picture">
+          <button type="button" class="avatar-edit-icon" onclick="openAvatarModal()" aria-label="Change profile picture" title="Change Profile Picture">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 20h9"></path>
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
             </svg>
-          </div>
+          </button>
         </div>
 
-        <h2 style="font-family:var(--font-serif); font-size:22px; color:var(--text-primary); margin-bottom:4px;">
+        <h2 class="profile-name" style="font-family:var(--font-serif); font-size:22px; color:var(--text-primary); margin-bottom:4px;">
           <?= htmlspecialchars($user['name']) ?>
         </h2>
-        <div style="font-size:13.5px; color:var(--text-secondary); margin-bottom:12px;"><?= htmlspecialchars($user['email']) ?></div>
+        <div class="profile-email" style="font-size:13.5px; color:var(--text-secondary); margin-bottom:12px;"><?= htmlspecialchars($user['email']) ?></div>
         
         <span class="badge" style="background:var(--bg-surface-alt); color:var(--olive-600);">
           MEMBER ID: <?= htmlspecialchars($user['member_id']) ?>
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Right Column: Personal Information Table & Preferences -->
     <div>
       <div class="panel-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border-subtle);">
+        <div class="profile-section-heading" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border-subtle);">
           <h3 style="font-family:var(--font-serif); font-size:22px; color:var(--text-primary);">Personal Information</h3>
           <button type="button" class="btn btn-secondary btn-sm" onclick="openEditModal()">Edit Information</button>
         </div>
@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </div>
 
-        <div style="margin-top:36px; padding-top:24px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
+        <div class="profile-theme-row" style="margin-top:36px; padding-top:24px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
           <div>
             <div style="font-size:15px; font-weight:700; color:var(--text-primary);">Dark Mode Theme</div>
             <div style="font-size:13px; color:var(--text-muted);">Adjust screen contrast for low-light environments</div>
