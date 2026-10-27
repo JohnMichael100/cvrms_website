@@ -43,7 +43,7 @@
   --shadow-lg: 0 24px 58px rgba(29, 24, 15, 0.12);
   --shadow-xl: 0 30px 70px rgba(29, 24, 15, 0.16);
 
-  --font-serif: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
   --font-sans:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
   --radius-sm: 12px;
@@ -1708,4 +1708,440 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(22px);
+}
+
+/* Checkout, account agreement, and responsive refinements */
+.site-header {
+  background-color: rgba(247, 244, 237, 0.84);
+  box-shadow: 0 8px 24px rgba(29, 24, 15, 0.045);
+}
+
+.catalog-card,
+.panel-card,
+.ledger-card,
+.feature-panel,
+.quick-card {
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.catalog-card:hover,
+.panel-card:hover,
+.ledger-card:hover {
+  border-color: var(--border-strong);
+}
+
+.btn,
+.form-input,
+.form-select,
+.payment-option {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 4px rgba(184, 134, 59, 0.14);
+}
+
+.agreement-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin: 8px 0 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.agreement-checkbox input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--olive-600);
+}
+
+.agreement-checkbox a,
+.agreement-back {
+  color: var(--olive-600);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.agreement-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.agreement-status strong,
+.agreement-status span {
+  display: block;
+}
+
+.agreement-status strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.agreement-status span {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.payment-page {
+  max-width: 1080px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.checkout-card {
+  padding: clamp(24px, 4vw, 40px);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  animation: checkout-enter 0.45s ease both;
+}
+
+[data-theme="dark"] .checkout-card {
+  background: rgba(29, 26, 20, 0.86);
+}
+
+.checkout-eyebrow {
+  color: var(--gold-600);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.checkout-card h2 {
+  margin-top: 8px;
+  color: var(--text-primary);
+  font: 700 25px/1.3 var(--font-serif);
+}
+
+.checkout-detail {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.checkout-meta {
+  margin-top: 26px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.checkout-meta div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.checkout-meta dt {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.checkout-meta dd {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.payment-note {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-alt);
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.payment-form {
+  margin-top: 24px;
+}
+
+.payment-option {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.payment-option:has(input:checked) {
+  background: var(--bg-surface-alt);
+  border-color: var(--olive-600);
+  box-shadow: 0 0 0 2px rgba(70, 59, 32, 0.08);
+}
+
+.payment-option input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-top: 3px;
+  accent-color: var(--olive-600);
+}
+
+.payment-option strong,
+.payment-option small {
+  display: block;
+}
+
+.payment-option strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.payment-option small {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.checkout-submit {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.checkout-cancel {
+  display: block;
+  margin-top: 15px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.checkout-complete {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.checkout-complete h2 {
+  margin-top: 12px;
+  font-family: var(--font-sans);
+}
+
+.checkout-complete p {
+  margin: 10px 0 22px;
+  color: var(--text-secondary);
+}
+
+.form-alert {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  color: #8d3026;
+  background: #fff0ed;
+  border: 1px solid #f2c2b9;
+  border-radius: var(--radius-sm);
+}
+
+.checkout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.agreement-page {
+  width: min(860px, calc(100% - 36px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+
+.agreement-back {
+  display: inline-block;
+  margin-bottom: 22px;
+  font-size: 13px;
+}
+
+.agreement-card {
+  padding: clamp(24px, 5vw, 56px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.agreement-card .section-title {
+  margin-top: 5px;
+}
+
+.agreement-updated {
+  margin: 10px 0 28px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.agreement-card p {
+  margin: 0 0 15px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.agreement-card h2 {
+  margin: 26px 0 8px;
+  color: var(--text-primary);
+  font: 700 20px/1.35 var(--font-serif);
+}
+
+.agreement-actions {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+@keyframes checkout-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1000px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    padding: 12px var(--page-gutter);
+  }
+
+  .brand-logo {
+    width: 64px;
+    height: 64px;
+  }
+
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    border-radius: 14px;
+    scrollbar-width: thin;
+  }
+
+  .nav-link {
+    padding: 9px 16px;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding-top: 24px;
+    padding-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: clamp(29px, 8vw, 36px);
+  }
+
+  .panel-card {
+    padding: 22px;
+  }
+
+  .agreement-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .header-inner {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    gap: 9px;
+  }
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+
+  .brand-sub {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .user-meta-text {
+    display: none;
+  }
+
+  .user-avatar-thumb {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-menu {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .checkout-meta div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .checkout-meta dd {
+    text-align: left;
+  }
+
+  .footer-bottom-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-card {
+    animation: none;
+  }
 }

@@ -54,7 +54,7 @@
       <div style="display:flex; gap:24px;">
         <a href="#terms" style="color:#8f8574; text-decoration:none;">Privacy Policy</a>
         <a href="#terms" style="color:#8f8574; text-decoration:none;">Resort Guidelines</a>
-        <a href="#terms" style="color:#8f8574; text-decoration:none;">Terms of Service</a>
+        <a href="agreement.php" style="color:#8f8574; text-decoration:none;">User Agreement</a>
       </div>
     </div>
   </div>

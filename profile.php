@@ -154,6 +154,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <button type="button" class="btn btn-secondary btn-sm" onclick="openEditModal()">Edit Information</button>
         </div>
 
+        <div class="agreement-status">
+          <div>
+            <strong>User Agreement</strong>
+            <span>
+              <?= !empty($user['agreement_accepted_at'])
+                ? 'Accepted on ' . htmlspecialchars(date('M j, Y', strtotime($user['agreement_accepted_at'])))
+                : 'No signup acceptance is recorded for this existing account.' ?>
+            </span>
+          </div>
+          <a href="agreement.php" class="btn btn-secondary btn-sm">Review agreement</a>
+        </div>
+
         <div class="profile-detail-row">
           <div>
             <div class="profile-detail-label">Full Name</div>

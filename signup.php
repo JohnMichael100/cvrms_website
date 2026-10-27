@@ -3,35 +3,57 @@
 require_once __DIR__ . '/includes/data.php';
 
 $error = '';
+$name = '';
+$email = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    if (empty($name) || empty($email) || empty($password)) {
-        $error = "Please fill in all required fields.";
+    if ($name === '' || $email === '' || $password === '') {
+        $error = 'Please fill in all required fields.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Enter a valid email address.';
+    } elseif (strlen($password) < 8) {
+        $error = 'Your password must be at least 8 characters.';
+    } elseif (!isset($_POST['agreement'])) {
+        $error = 'Please review and accept the User Agreement to create your account.';
     } else {
         $data = load_data();
-        $new_id = count($data['users']) + 1;
-        $new_user = [
-            'id' => $new_id,
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'phone' => '+63 912 345 6789',
-            'birthdate' => '2000-01-01',
-            'gender' => 'Male',
-            'address' => 'Cebu City, Philippines',
-            'member_id' => 'CV-' . rand(1000, 9999),
-            'pfp' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-            'total_bookings' => 0,
-            'nights_stayed' => 0
-        ];
-        $data['users'][] = $new_user;
-        save_data($data);
-        $_SESSION['user_id'] = $new_id;
-        header("Location: home.php");
-        exit;
+        $email_exists = false;
+        foreach ($data['users'] as $existing_user) {
+            if (strtolower($existing_user['email']) === strtolower($email)) {
+                $email_exists = true;
+                break;
+            }
+        }
+
+        if ($email_exists) {
+            $error = 'An account with that email address already exists. Please sign in instead.';
+        } else {
+            $new_id = count($data['users']) + 1;
+            $new_user = [
+                'id' => $new_id,
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'phone' => '+63 912 345 6789',
+                'birthdate' => '2000-01-01',
+                'gender' => 'Male',
+                'address' => 'Cebu City, Philippines',
+                'member_id' => 'CV-' . rand(1000, 9999),
+                'pfp' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+                'total_bookings' => 0,
+                'nights_stayed' => 0,
+                'agreement_accepted_at' => date(DATE_ATOM),
+                'agreement_version' => '2026-10-27'
+            ];
+            $data['users'][] = $new_user;
+            save_data($data);
+            $_SESSION['user_id'] = $new_id;
+            header("Location: home.php");
+            exit;
+        }
     }
 }
 ?>
@@ -83,18 +105,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="signup.php">
       <div class="form-group">
         <label class="form-label">Full Name</label>
-        <input type="text" name="name" class="form-input" required placeholder="e.g. John Doe">
+        <input type="text" name="name" class="form-input" required autocomplete="name" value="<?= htmlspecialchars($name) ?>" placeholder="e.g. John Doe">
       </div>
 
       <div class="form-group">
         <label class="form-label">Email Address</label>
-        <input type="email" name="email" class="form-input" required placeholder="name@domain.com">
+        <input type="email" name="email" class="form-input" required autocomplete="email" value="<?= htmlspecialchars($email) ?>" placeholder="name@domain.com">
       </div>
 
       <div class="form-group">
         <label class="form-label">Create Password</label>
-        <input type="password" name="password" class="form-input" required placeholder="Minimum 8 characters">
+        <input type="password" name="password" class="form-input" required minlength="8" autocomplete="new-password" placeholder="Minimum 8 characters">
       </div>
+
+      <label class="agreement-checkbox">
+        <input type="checkbox" name="agreement" value="accepted" required <?= isset($_POST['agreement']) ? 'checked' : '' ?>>
+        <span>I have read and agree to the <a href="agreement.php" target="_blank" rel="noopener">CasaVista User Agreement</a>. This confirmation is required once when creating an account.</span>
+      </label>
 
       <button type="submit" class="btn btn-primary" style="width:100%; padding:13px; font-size:14.5px; margin-top:8px;">Complete Registration</button>
     </form>

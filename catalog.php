@@ -13,31 +13,6 @@ $items = array_filter($data['catalog'], function($item) use ($filter) {
     return $item['type'] === $filter;
 });
 
-$booking_alert = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reserve') {
-    $item_id = intval($_POST['item_id']);
-    foreach ($data['catalog'] as $cat_item) {
-        if ($cat_item['id'] === $item_id) {
-            $new_booking = [
-                'id' => 'BK-' . rand(2000, 9999),
-                'user_id' => $user['id'],
-                'title' => $cat_item['title'],
-                'type' => 'Upcoming',
-                'check_in' => '2:00 PM',
-                'check_out' => '12:00 PM',
-                'date' => date('M d, Y', strtotime('+4 days')),
-                'capacity' => $cat_item['subtitle'],
-                'payment' => 'Online Bank Transfer / GCash',
-                'price' => '₱' . number_format($cat_item['rate']) . ' / night',
-                'status' => 'Confirmed'
-            ];
-            $data['bookings'][] = $new_booking;
-            save_data($data);
-            $booking_alert = "Your reservation for " . $cat_item['title'] . " has been successfully confirmed!";
-            break;
-        }
-    }
-}
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
 
@@ -49,13 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       Select from our 3 oceanfront villas, 3 certified pickleball hardcourts, FIBA basketball court, or full private buyout packages.
     </p>
   </div>
-
-  <?php if (!empty($booking_alert)): ?>
-    <div style="background-color:#eaf5ee; color:#1f693b; border:1px solid #c7e5d2; padding:16px 20px; border-radius:var(--radius-sm); font-size:14px; font-weight:600; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center;">
-      <span><?= htmlspecialchars($booking_alert) ?></span>
-      <a href="bookings.php" style="color:#1f693b; text-decoration:underline;">Review in Bookings &rarr;</a>
-    </div>
-  <?php endif; ?>
 
   <!-- Filter Toolbar (ALL, ROOMS, PICKLEBALL, BASKETBALL, BUYOUT) -->
   <div class="filter-toolbar">
@@ -91,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <?php if ($item['type'] === 'PICKLEBALL' || $item['type'] === 'BASKETBALL'): ?>
                   <a href="court.php?type=<?= strtolower($item['type']) ?>" class="btn btn-primary btn-sm">Reserve Slot</a>
                 <?php else: ?>
-                  <form method="POST" action="catalog.php?filter=<?= $filter ?>" style="display:inline;">
-                    <input type="hidden" name="action" value="reserve">
+                  <form method="POST" action="payment.php" style="display:inline;">
+                    <input type="hidden" name="action" value="start_room">
                     <input type="hidden" name="item_id" value="<?= $item['id'] ?>">
                     <button type="submit" class="btn btn-primary btn-sm">Reserve Villa</button>
                   </form>

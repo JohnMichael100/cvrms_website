@@ -14,13 +14,20 @@ Built with PHP, HTML5, CSS3, and JavaScript.
   6. `profile.php`: Personal guest credentials, total bookings, nights stayed, edit credentials modal, change avatar modal, and dark mode toggle.
 
 ## How to Run Locally
-1. Extract the ZIP file directly into your project directory:
-   `C:\Users\Admin\Desktop\casavista_resort`
-2. Open terminal in VS Code and start the server:
+1. Install PHP 7.4 or newer.
+2. Open a terminal in the project directory and start the server:
    ```bash
-   C:\xampp\php\php.exe -S localhost:8000
+   php -S localhost:8000
    ```
 3. Open your browser and go to:
    ```text
    http://localhost:8000
    ```
+
+## Reservations, payment, and agreement
+- Accommodation and court reservations go through `payment.php`, where guests select e-wallet or cash at the resort.
+- E-wallet selection is a payment preference only. No payment gateway is connected and this site does not collect funds.
+- New accounts must accept the User Agreement once at signup. The accepted agreement version and timestamp are stored with the account, and members can review it from their profile or the site footer.
+
+## Before publishing
+This project currently uses `includes/storage.json` as a lightweight local data store. It is suitable for a small demo, but not a production booking system: concurrent writes, backups, access controls, and personal-data protection need a production database and deployment configuration. Configure HTTPS, secure PHP sessions, and a real payment provider before accepting online payments. Remove or replace seeded demo account data before launch.

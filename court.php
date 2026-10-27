@@ -3,46 +3,12 @@
 require_once __DIR__ . '/includes/data.php';
 require_login();
 
-$user = get_current_user_data();
-$data = load_data();
-
 $sport = isset($_GET['type']) ? strtolower($_GET['type']) : 'pickleball';
 if (!in_array($sport, ['pickleball', 'basketball'])) {
     $sport = 'pickleball';
 }
 
-$notice = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'book_court') {
-    $court_name = trim($_POST['court_name'] ?? 'Court 1');
-    $time_slot = trim($_POST['time_slot'] ?? '3-4 PM');
-    $booking_date = trim($_POST['booking_date'] ?? 'AUG 20, 2026');
-    $sport_title = ($sport === 'pickleball') ? 'Pickleball' : 'Basketball';
-    $rate = ($sport === 'pickleball') ? '₱350' : '₱800';
-
-    $new_court_booking = [
-        'id' => 'BK-' . rand(4000, 9999),
-        'user_id' => $user['id'],
-        'title' => "$sport_title $court_name ($time_slot)",
-        'type' => 'Upcoming',
-        'check_in' => explode('-', $time_slot)[0] ?? '3:00 PM',
-        'check_out' => explode('-', $time_slot)[1] ?? '4:00 PM',
-        'date' => $booking_date,
-        'capacity' => ($sport === 'pickleball') ? '4 Players Max' : '10 Players Max',
-        'payment' => 'Charged to Villa Room Account',
-        'price' => $rate . ' / hr',
-        'status' => 'Confirmed'
-    ];
-
-    $data['bookings'][] = $new_court_booking;
-    foreach ($data['users'] as &$u) {
-        if ($u['id'] == $user['id']) {
-            $u['total_bookings'] = ($u['total_bookings'] ?? 0) + 1;
-            break;
-        }
-    }
-    save_data($data);
-    $notice = "Your court reservation on $booking_date ($time_slot) has been successfully placed!";
-}
+$selected_date = date('Y-m-d');
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
 
@@ -54,13 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       Book your 1-hour session on our 3 certified pickleball hardcourts or the FIBA basketball arena.
     </p>
   </div>
-
-  <?php if (!empty($notice)): ?>
-    <div style="background-color:#eaf5ee; color:#1f693b; border:1px solid #c7e5d2; padding:16px 20px; border-radius:var(--radius-sm); font-size:14px; font-weight:600; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center;">
-      <span><?= htmlspecialchars($notice) ?></span>
-      <a href="bookings.php" style="color:#1f693b; text-decoration:underline;">View in My Bookings &rarr;</a>
-    </div>
-  <?php endif; ?>
 
   <div class="court-studio-grid">
     <!-- Left Configuration Panel -->
@@ -80,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       <div class="calendar-widget">
         <div class="cal-header-row">
           <button type="button" class="cal-nav-btn" onclick="prevMonth()">&larr;</button>
-          <div class="cal-month-title" id="calendarMonthYear">August 2026</div>
+          <div class="cal-month-title" id="calendarMonthYear"><?= htmlspecialchars(date('F Y')) ?></div>
           <button type="button" class="cal-nav-btn" onclick="nextMonth()">&rarr;</button>
         </div>
 
@@ -97,10 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       </div>
 
       <!-- Form Submission -->
-      <form method="POST" action="court.php?type=<?= $sport ?>" id="courtReservationForm">
-        <input type="hidden" name="action" value="book_court">
-        <input type="hidden" name="booking_date" id="selectedDateInput" value="Thu, Aug 20 2026">
-        <input type="hidden" name="court_name" id="selectedCourtInput" value="<?= ($sport === 'pickleball') ? 'Court 1' : 'Main FIBA Arena' ?>">
+      <form method="POST" action="payment.php" id="courtReservationForm">
+        <input type="hidden" name="action" value="start_court">
+        <input type="hidden" name="sport" value="<?= htmlspecialchars($sport) ?>">
+        <input type="hidden" name="booking_date" id="selectedDateInput" value="<?= htmlspecialchars($selected_date) ?>">
+        <input type="hidden" name="court_name" id="selectedCourtInput" value="<?= ($sport === 'pickleball') ? 'Court 1 (Pro Hardcourt)' : 'Main FIBA Basketball Arena' ?>">
         <input type="hidden" name="time_slot" id="selectedSlotInput" value="3-4 PM">
 
         <!-- Court Options -->
@@ -143,11 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         </div>
         <div class="summary-row">
           <span class="label">Facility</span>
-          <span class="val" id="summaryCourtDisplay"><?= ($sport === 'pickleball') ? 'Court 1' : 'Main FIBA Arena' ?></span>
+          <span class="val" id="summaryCourtDisplay"><?= ($sport === 'pickleball') ? 'Court 1 (Pro Hardcourt)' : 'Main FIBA Basketball Arena' ?></span>
         </div>
         <div class="summary-row">
           <span class="label">Date</span>
-          <span class="val" id="summaryDateDisplay">Thu, Aug 20 2026</span>
+          <span class="val" id="summaryDateDisplay"><?= htmlspecialchars(date('D, M j Y')) ?></span>
         </div>
         <div class="summary-row">
           <span class="label">Slot</span>
@@ -179,16 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 </main>
 
 <script>
-const currentSport = '<?= $sport ?>';
-const basePrice = (currentSport === 'pickleball') ? '₱350' : '₱800';
-
-let currentSelectedDate = 'Thu, Aug 20 2026';
-let currentSelectedCourt = '<?= ($sport === "pickleball") ? "Court 1" : "Main FIBA Arena" ?>';
-let currentSelectedSlot = '3-4 PM';
-
-let curYear = 2026;
-let curMonth = 7; // August
-let selectedDay = 20;
+const today = new Date();
+let curYear = today.getFullYear();
+let curMonth = today.getMonth();
+let selectedDay = today.getDate();
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -212,9 +166,12 @@ function renderCalendar() {
   for (let day = 1; day <= totalDays; day++) {
     const div = document.createElement('div');
     div.className = 'day-cell';
-    if (day === selectedDay) div.classList.add('active');
+    const date = new Date(curYear, curMonth, day);
+    const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    if (isPast) div.classList.add('muted');
+    if (day === selectedDay && !isPast) div.classList.add('active');
     div.innerText = day;
-    div.onclick = () => selectDay(day);
+    if (!isPast) div.onclick = () => selectDay(day);
     container.appendChild(div);
   }
 }
@@ -223,17 +180,17 @@ function selectDay(day) {
   selectedDay = day;
   renderCalendar();
   const d = new Date(curYear, curMonth, day);
-  currentSelectedDate = `${dayNames[d.getDay()]}, ${monthNames[curMonth].substring(0,3)} ${day} ${curYear}`;
-  document.getElementById('selectedDateInput').value = currentSelectedDate;
-  document.getElementById('summaryDateDisplay').innerText = currentSelectedDate;
+  document.getElementById('selectedDateInput').value = `${curYear}-${String(curMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  document.getElementById('summaryDateDisplay').innerText = `${dayNames[d.getDay()]}, ${monthNames[curMonth].substring(0,3)} ${day} ${curYear}`;
 }
 
 function prevMonth() {
+  if (curYear === today.getFullYear() && curMonth <= today.getMonth()) return;
   curMonth--;
   if (curMonth < 0) { curMonth = 11; curYear--; }
   selectedDay = 1;
   renderCalendar();
-  selectDay(1);
+  selectDay(Math.max(1, curYear === today.getFullYear() && curMonth === today.getMonth() ? today.getDate() : 1));
 }
 
 function nextMonth() {
@@ -247,7 +204,6 @@ function nextMonth() {
 function selectCourt(el, courtName) {
   document.querySelectorAll('#courtSelectorContainer .option-pill-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
-  currentSelectedCourt = courtName;
   document.getElementById('selectedCourtInput').value = courtName;
   document.getElementById('summaryCourtDisplay').innerText = courtName;
 }
@@ -255,13 +211,13 @@ function selectCourt(el, courtName) {
 function selectSlot(el, slot) {
   el.parentElement.querySelectorAll('.option-pill-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
-  currentSelectedSlot = slot;
   document.getElementById('selectedSlotInput').value = slot;
   document.getElementById('summarySlotDisplay').innerText = `${slot} (1 Hour)`;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   renderCalendar();
+  selectDay(selectedDay);
 });
 </script>
 
